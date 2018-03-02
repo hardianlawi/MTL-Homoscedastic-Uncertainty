@@ -21,8 +21,8 @@ scikit-learn
 
 Below are the functions of the scripts:
 
-- `config.py`: contains the hyperparameters of the model and the configuration for the training such as the labels used as the objectives.
-- `estimators.py`: contains the neural networks that import the hyperparameters and the configuration from `config.py` and train an `estimator` which then would be exported to a `SavedModel` format.
+- [`config.py`](https://github.com/hardianlawi/MTL-Homoscedastic-Uncertainty/blob/master/scripts/config.py): contains the hyperparameters of the model and the configuration for the training such as the labels used as the objectives.
+- [`estimators.py`](https://github.com/hardianlawi/MTL-Homoscedastic-Uncertainty/blob/master/scripts/estimators.py): contains the neural networks that import the hyperparameters and the configuration from `config.py` and train an `estimator` which then would be exported to a `SavedModel` format.
 
 ### Training
 

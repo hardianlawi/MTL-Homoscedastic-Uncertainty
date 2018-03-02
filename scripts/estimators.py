@@ -208,11 +208,6 @@ def serving_input_receiver_fn(num_features):
 
 def main():
 
-    logging.basicConfig(format='%(asctime)s %(message)s',
-                        datefmt='%m/%d/%Y %I:%M:%S %p',
-                        level=logging.INFO,
-                        filename='../logs/{}.log'.format(model_name))
-
     # Argparse format
     # Boilerplate for arg parser
     parser = argparse.ArgumentParser()
@@ -221,6 +216,11 @@ def main():
 
     # Parse arguments
     args = parser.parse_args()
+
+    logging.basicConfig(format='%(asctime)s %(message)s',
+                        datefmt='%m/%d/%Y %I:%M:%S %p',
+                        level=logging.INFO,
+                        filename=os.path.join(model_path, '{}.log'.format(model_name)))
 
     if not os.path.exists(args.model_path):
         os.makedirs(args.model_path)
@@ -258,9 +258,6 @@ def main():
     del train
     gc.collect()
 
-    with open(os.path.join(model_path, "model_config.json"), 'w') as f:
-        json.dump(params, f)
-
     model = tf.estimator.Estimator(model_fn=mtl_model_fn,
                                    model_dir=model_path,
                                    params=params)
@@ -284,6 +281,13 @@ def main():
     )
 
     logging.info("SavedModel is exported to {}".format(export_dir))
+
+    params["train_data"] = args.train_data
+    params["model_path"] = args.model_path
+    params["export_dir"] = export_dir
+
+    with open(os.path.join(model_path, "model_config.json"), 'w') as f:
+        json.dump(params, f)
 
 
 if __name__ == "__main__":

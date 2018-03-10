@@ -196,14 +196,18 @@ def mtl_model_fn(features, labels, mode, params):
         mode=mode, loss=loss, eval_metric_ops=eval_metric_ops)
 
 
-def serving_input_receiver_fn(num_features):
+def serving_input_receiver_fn(num_features, mean_, scale_):
     """Build the serving inputs."""
     # The outer dimension (None) allows us to batch up inputs for
     # efficiency. However, it also means that if we want a prediction
     # for a single instance, we'll need to wrap it in an outer list.
-    inputs = {"x": tf.placeholder(shape=[None, num_features],
-                                  dtype=tf.float64)}
-    return tf.estimator.export.ServingInputReceiver(inputs, inputs)
+    x = tf.placeholder(shape=[None, num_features],
+                       dtype=tf.float64)
+    imputed_x = tf.where(tf.is_nan(x), tf.zeros_like(x), x)
+    processed_x = (imputed_x - mean_) / scale_
+    receiver_tensors = {"x": x}
+    features = {"x": processed_x}
+    return tf.estimator.export.ServingInputReceiver(receiver_tensors, features)
 
 
 def main():
@@ -239,11 +243,8 @@ def main():
     # To impute with zeros
     Xtrain = np.nan_to_num(Xtrain)
 
-    # By default Imputer() will impute using mean, but since we are imputing
-    # with zeros, it is not doing anything. Comment `np.nan_to_num` to enable
-    # Imputer()
-    preprocessor = Pipeline([('imputer', Imputer()),
-                             ('scaler', StandardScaler())])
+    # Standardization
+    preprocessor = StandardScaler()
 
     Xtrain = preprocessor.fit_transform(Xtrain)
 
@@ -273,7 +274,11 @@ def main():
     model.train(input_fn=train_input_fn)
 
     def input_receiver_fn():
-        return serving_input_receiver_fn(Xtrain.shape[1])
+        return serving_input_receiver_fn(
+            Xtrain.shape[1],
+            preprocessor.mean_,
+            preprocessor.scale_,
+        )
 
     export_dir = model.export_savedmodel(
         export_dir_base=model_path,
@@ -284,7 +289,7 @@ def main():
 
     params["train_data"] = args.train_data
     params["model_path"] = args.model_path
-    params["export_dir"] = export_dir
+    params["export_dir"] = export_dir.decode("utf-8")
 
     with open(os.path.join(model_path, "model_config.json"), 'w') as f:
         json.dump(params, f)

@@ -96,3 +96,14 @@ After training the model in *Python*, tensorflow serving could be used to deploy
 ## Acknowledgments
 
 Please read the [paper](https://arxiv.org/abs/1705.07115) for more details of the model or check the github of one of the authors [github](https://github.com/yaringal/multi-task-learning-example) for the implementation in `keras`.
+
+## References
+
+- [Identifying beneficial task relations for multi-task learning in deep neural networks](http://www.aclweb.org/anthology/E17-2026)
+- [Fully-adaptive Feature Sharing in Multi-Task Networks with Applications in Person Attribute Classification](https://arxiv.org/pdf/1611.05377.pdf)
+- [Cross-stitch Networks for Multi-task Learning](https://arxiv.org/pdf/1604.03539.pdf)
+- [An Overview of Multi-Task Learning in Deep Neural Networks](http://ruder.io/multi-task/)
+- [Deep Learning Is Not Good Enough, We Need Bayesian Deep Learning for Safe AI](https://alexgkendall.com/computer_vision/bayesian_deep_learning_for_safe_ai/)
+- [Uncertainty in Deep Learning (PhD Thesis) | Yarin Gal - Blog | Cambridge Machine Learning Group](http://mlg.eng.cam.ac.uk/yarin/blog_2248.html)
+- [What Uncertainties Do We Need in Bayesian Deep Learning for Computer Vision?](https://arxiv.org/abs/1703.04977)
+- [Geometry and Uncertainty in Deep Learning for Computer Vision](https://alexgkendall.com/media/presentations/oxford_seminar.pdf)

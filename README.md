@@ -97,7 +97,7 @@ After training the model in *Python*, tensorflow serving could be used to deploy
 
 Please read the [paper](https://arxiv.org/abs/1705.07115) for more details of the model or check the github of one of the authors [github](https://github.com/yaringal/multi-task-learning-example) for the implementation in `keras`.
 
-## References
+## Additional References
 
 - [Identifying beneficial task relations for multi-task learning in deep neural networks](http://www.aclweb.org/anthology/E17-2026)
 - [Fully-adaptive Feature Sharing in Multi-Task Networks with Applications in Person Attribute Classification](https://arxiv.org/pdf/1611.05377.pdf)

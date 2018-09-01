@@ -1,6 +1,6 @@
 # Multi Task Learning with Homoscedastic Uncertainty
 
-Multi Task Learning has been widely used in different applications. However, the performance of the model heavily depends on the method used to combine the losses between various objectives. This repository contains the implementation in *Tensorflow*.
+Multi Task Learning has been widely used in different applications. However, the performance of the model heavily depends on the method used to combine the losses between various objectives. This repository contains the implementation of https://arxiv.org/abs/1705.07115 in *Tensorflow*.
 
 ## Getting Started
 
